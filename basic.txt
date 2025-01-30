@@ -1,0 +1,129 @@
+Duplicate Question Pairs Project
+
+Overview
+This project involves building a predictive model to determine if two questions are duplicates. It analyzes text-based question pairs and predicts their classification based on certain extracted features.
+
+
+Key Objectives
+
+- Classify question pairs as "Duplicate" or "Not Duplicate."
+- Understand the relationship between text-based features and duplicate classification.
+- Provide an efficient and user-friendly duplicate question detection solution.
+
+
+Dataset
+
+- Source: Kaggle's Quora Question Pairs dataset.
+- Features:
+    - qid1, qid2: Unique IDs for the questions.
+    - question1, question2: The actual text of the questions.
+    - is_duplicate: Target variable (1 for duplicate, 0 for not duplicate)..
+
+Methodology
+
+1. Data Cleaning:
+
+   - Load the dataset and knows about the data.
+   - Check for missing values and handle them accurately.
+   - Checking for duplicate values and removing duplicate rows if any.
+
+2. Exploratory Data Analysis (EDA):
+
+   - Analyzed the distribution of duplicate and non-duplicate questions.
+   - Visualized word frequencies in duplicate and non-duplicate question pairs.
+   - Checked the balance of the dataset.
+
+3. Feature Extraction:
+
+   - q1len --> char length of q1 
+   - q2len --> char length of q2 
+   - q1words --> words in q1 
+   - q2words --> words in q2 
+   - words_common --> common words in both questions 
+   - words_total --> unique words in q1+unique words in q2 
+   - words_share --> words_common/words_total
+
+4. Data PreProcessing:
+
+   - Analysing the newly created features and there impact on the output.
+   - Converting the text to lowercase.
+   - Replacing some numbers and special characters with their string equivalent.
+   - Decontracting words.
+   - Removing HTML tags.
+   - Remove punctuations.
+
+5. Creating Advanced Features:
+
+   - Token Features
+        cwc_min: This is the ratio of the number of common words to the length of the smaller question
+        cwc_max: This is the ratio of the number of common words to the length of the larger question
+        csc_min: This is the ratio of the number of common stop words to the smaller stop word count among the two questions
+        csc_max: This is the ratio of the number of common stop words to the larger stop word count among the two questions
+        ctc_min: This is the ratio of the number of common tokens to the smaller token count among the two questions
+        ctc_max: This is the ratio of the number of common tokens to the larger token count among the two questions
+        last_word_eq: 1 if the last word in the two questions is same, 0 otherwise
+        first_word_eq: 1 if the first word in the two questions is same, 0 otherwise
+
+  -  Length Based Features
+        mean_len: Mean of the length of the two questions (number of words)
+        abs_len_diff: Absolute difference between the length of the two questions (number of words)
+        longest_substr_ratio: Ratio of the length of the longest substring among the two questions to the length of the smaller question
+
+  - Fuzzy Features
+        fuzz_ratio: fuzz_ratio score from fuzzywuzzy
+        fuzz_partial_ratio: fuzz_partial_ratio from fuzzywuzzy
+        token_sort_ratio: token_sort_ratio from fuzzywuzzy
+        token_set_ratio: token_set_ratio from fuzzywuzzy
+
+6. Modeling:
+   
+   - Apply text vectorization techniques such as:
+     - Bag of Words(BOW)
+   - Split the data into training and testing sets.
+   - Train machine learning models such as:
+     - Random Forest Classifier
+     - XGBoost Classifier
+   - Evaluate models using metrics such as accuracy score, confusion metrics.
+
+7. Prediction and Validation:
+
+   - Test the model on unseen data.
+   - Compare predicted outcomes with actual outcomes.
+
+Libraries and Tools Used
+
+- Python: Programming language for implementation.
+- Pandas: For data manipulation and analysis.
+- NumPy: For numerical computations.
+- Matplotlib and Seaborn: For data visualization.
+- re:  Used for text preprocessing, such as cleaning questions, removing special characters, or tokenizing words.
+- bs4: Used for parsing HTML and removing HTML tags.
+- fuzzywuzzy: Used to compare the similarity between question1 and question2.
+- diatance: Used to find the longest common substrings between q1 and q2, storing them as a list.
+- NLTK: For natural language processing.
+- XGBoost: For XGBoost Classifier.
+- Scikit-learn: For machine learning modeling and evaluation.
+- Jupyter Notebook: For interactive coding and documentation.
+
+Results
+
+- The model achieved a satisfactory level of accuracy and other performance metrics in classifying SMS messages.
+- Identified key patterns and features in spam messages through text analysis.
+
+Prerequisites
+
+- Python
+- Required Libraries:
+  - pandas
+  - numpy
+  - matplotlib
+  - seaborn
+  - fuzzywuzzy -> fuzz
+  - distance
+  - re
+  - bs4 -> BeautifulSoup
+  - scikit-learn
+  - nltk
+  - xgboost
+  - jupyter notebook
+
